@@ -1,16 +1,38 @@
-# React + Vite
+# Progress
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A mobile-first PWA for taking aligned progress photos and comparing them with
+before/after collages. Implemented from the Claude Design file
+`Progress Photo App.dc.html`.
 
-Currently, two official plugins are available:
+## How it works
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Every photo is taken against a draggable, resizable figure guide (front / side /
+back, with or without head). The figure's position and size are stored with the
+photo, so any two photos can be overlaid with their poses normalized — the
+before/after slider and exported collages line up automatically.
 
-## React Compiler
+## Screens
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Gallery** — photo grid with date/weight labels
+- **New photo** — choose camera or photo picker, figure pose, head toggle
+- **Capture** — live camera (or picked image) with the alignment figure,
+  size slider, and a 3s self-timer
+- **Review** — tag with weight and notes, overlay or caption info style
+- **Saved** — prompt to build a collage
+- **Compare** — pick the "before" photo
+- **Before / After** — draggable comparison slider, save or share as JPEG
+- **Detail** — full view, delete, jump to compare
 
-## Expanding the ESLint configuration
+Photos are stored locally in `localStorage` (`pp_photos_v1`) as JPEG data URLs.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Development
+
+```sh
+npm install
+npm run dev      # start dev server
+npm run build    # production build (generates the PWA service worker)
+npm run lint     # eslint
+```
+
+Built with Vite + React 19, zustand for state, and vite-plugin-pwa.
+Camera capture requires a secure context (localhost or HTTPS).
